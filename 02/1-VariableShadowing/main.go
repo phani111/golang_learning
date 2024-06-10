@@ -85,5 +85,6 @@ func createClientWithTimeout() (*http.Client, error) {
 }
 
 func createDefaultclient() (*http.Client, error) {
-	return &http.Client{}, nil
+	return http.DefaultClient, nil
+
 }
