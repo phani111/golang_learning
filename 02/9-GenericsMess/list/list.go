@@ -1,5 +1,7 @@
 package list
 
+import "fmt"
+
 type Node[T any] struct {
 	Value T
 	Next  *Node[T]
@@ -29,4 +31,36 @@ func (l *List[T]) Add(value T) {
 	}
 	current.Next = newNode
 	l.Len++
+}
+
+func (l *List[T]) Get(index int) T {
+	if index < 0 || index >= l.Len {
+		// This line declares a variable zero of type T. In Go, when you declare a variable without intialising it, it gets the zero vaule for its type
+		var zero T
+		return zero
+	}
+	if l.Head == nil {
+		var zero T
+		return zero
+	}
+	current := l.Head
+	for i := 0; i < index; i++ {
+		current = current.Next
+	}
+	return current.Value
+}
+
+func (l *List[T]) String() string {
+	if l.Head == nil {
+		return "[]"
+	}
+
+	values := make([]string, 0, l.Len)
+	current := l.Head
+
+	for current != nil {
+		values = append(values, fmt.Sprintf("%v", current.Value))
+		current = current.Next
+	}
+	return fmt.Sprintf("")
 }
