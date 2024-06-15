@@ -85,6 +85,10 @@ func getKeysCustom[k customConstraints, V any](m map[K]V) []K {
 	return keys
 }
 
+/*
+In this case, using generics won’t bring any value to our code whatsoever. We
+should make the w argument an io.Writer directly.
+*/
 func foo[T io.Writer](w T) {
 	b := []byte{1, 2, 3}
 	_, _ = w.Write(b)
