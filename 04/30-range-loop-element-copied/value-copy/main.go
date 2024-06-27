@@ -1,4 +1,12 @@
-// The main package is the entry point for the application.
+/*
+The first loop demonstrates a common pitfall when using range with struct values.
+The second and third loops show correct ways to modify slice elements.
+The fourth loop shows how using pointers can allow modifications even when using range.
+The createAccounts() function returns a slice of account values.
+The createAccountsPtr() function returns a slice of account pointers.
+The printAccountsPtr() function is a custom way to print the slice of account pointers.
+This code effectively illustrates the differences in behavior when working with value types vs pointer types in slices, and different looping techniques in Go
+*/
 package main
 
 import (
@@ -11,11 +19,14 @@ type account struct {
 }
 
 func main() {
+	//This loop doesn't modify the original slice because a is a copy of each account. The changes are made to the copy, not the original.
+
 	accounts := createAccounts()
 	for _, a := range accounts {
 		a.balance += 1000
 	}
 	fmt.Println(accounts)
+	//This loop correctly modifies the original slice by accessing elements through their index.
 
 	accounts = createAccounts()
 	for i := range accounts {
@@ -23,11 +34,15 @@ func main() {
 	}
 	fmt.Println(accounts)
 
+	// This is a traditional for loop that also correctly modifies the original slice.
+
 	accounts = createAccounts()
 	for i := 0; i < len(accounts); i++ {
 		accounts[i].balance += 1000
 	}
 	fmt.Println(accounts)
+
+	// This loop works correctly because accountsPtr is a slice of pointers. Even though a is a copy of the pointer, it still points to the original account, so modifications affect the original data.
 
 	accountsPtr := createAccountsPtr()
 	for _, a := range accountsPtr {
