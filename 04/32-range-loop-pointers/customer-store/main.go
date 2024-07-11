@@ -8,9 +8,11 @@ type Customer struct {
 }
 
 type Store struct {
+	// m is a map that stores Customer pointers, keyed by the Customer ID.
 	m map[string]*Customer
 }
 
+// main creates a new Store, adds some Customers to it, and then prints the contents of the Store.
 func main() {
 	s := Store{
 		m: make(map[string]*Customer),
@@ -25,6 +27,10 @@ func main() {
 	printStore(s.m)
 }
 
+// storeCustomers adds the provided customers to the Store's internal map.
+// For each customer, it prints the address of the customer object and stores a pointer to it in the map,
+// keyed by the customer's ID.
+// After adding all the customers, it prints a newline.
 func (s *Store) storeCustomers(customers []Customer) {
 	for _, customer := range customers {
 		fmt.Printf("%p\n", &customer)
